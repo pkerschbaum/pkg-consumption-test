@@ -1,0 +1,27 @@
+{
+  "name": "test-pkg-consumption",
+  "private": true,
+  "scripts": {
+    "prepare": "husky install",
+    "postinstall": "node --input-type=module -e 'import { fetchAndStoreRules } from \"@pkerschbaum/typescript-eslint-rules-requiring-type-info\"; void fetchAndStoreRules();'",
+    "w:nuke": "pnpm --parallel run pkg:nuke && pnpm run w:nuke:node-modules",
+    "w:nuke:artifacts": "pnpm --parallel run pkg:nuke:artifacts",
+    "w:nuke:node-modules": "pnpm --parallel exec rimraf node_modules && rimraf node_modules",
+    "w:lint": "pnpm --parallel run pkg:lint",
+    "w:lint:fix": "pnpm --parallel run pkg:lint:fix",
+    "w:format": "prettier --write --ignore-unknown .",
+    "w:build": "pnpm --recursive run pkg:build",
+    "w:test": "pnpm run w:nuke || true && pnpm i && pnpm run w:build && pnpm run --recursive pkg:test"
+  },
+  "devDependencies": {
+    "@pkerschbaum/typescript-eslint-rules-requiring-type-info": "^1.0.0",
+    "cross-env": "^7.0.3",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.1.0",
+    "prettier": "^2.8.3",
+    "rimraf": "^4.1.2"
+  },
+  "engines": {
+    "pnpm": "^7.20.0"
+  }
+}

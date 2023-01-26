@@ -1,0 +1,53 @@
+{
+  "name": "@pkg-consumption-test/runner",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "imports": {
+    "#pkg/*": "./dist/*"
+  },
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "files": [
+    "/dist",
+    "/src",
+    "/pkg-consumption-test.js"
+  ],
+  "bin": {
+    "pkg-consumption-test": "./pkg-consumption-test.js"
+  },
+  "scripts": {
+    "lint": "cross-env APPLY_HEAVY_RULES=true eslint --max-warnings 0",
+    "build:compile": "tsc -p ./tsconfig.project.json",
+    "pkg:nuke": "pnpm run pkg:nuke:artifacts && rimraf node_modules",
+    "pkg:nuke:artifacts": "rimraf dist *.tsbuildinfo",
+    "pkg:lint": "pnpm run lint",
+    "pkg:lint:fix": "pnpm run pkg:lint --fix",
+    "pkg:build": "pnpm run build:compile"
+  },
+  "dependencies": {
+    "cac": "^6.7.14",
+    "pathe": "^1.1.0",
+    "verdaccio": "^5.19.1",
+    "zx": "^7.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.7",
+    "@typescript-eslint/eslint-plugin": "^5.48.0",
+    "@typescript-eslint/parser": "^5.48.0",
+    "@verdaccio/types": "^10.7.0",
+    "eslint": "^8.31.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-code-import-patterns": "^3.0.0",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-only-warn": "^1.1.0",
+    "eslint-plugin-regexp": "^1.11.0",
+    "typescript": "^4.9.4"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}

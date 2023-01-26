@@ -1,0 +1,10 @@
+{
+  "references": [
+    {
+      "path": "./runner/tsconfig.project.json"
+    },
+    {
+      "path": "./test-package/tsconfig.project.json"
+    }
+  ]
+}

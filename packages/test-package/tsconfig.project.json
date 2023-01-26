@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.workspace.json",
+  "compilerOptions": {
+    /* Modules */
+    "module": "CommonJS",
+    "rootDir": "./src",
+
+    /* Emit */
+    "outDir": "./dist"
+  },
+  "include": ["src/**/*"]
+}
