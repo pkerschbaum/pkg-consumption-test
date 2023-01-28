@@ -1,5 +1,5 @@
 {
-  "name": "test-pkg-consumption",
+  "name": "pkg-consumption-test",
   "private": true,
   "scripts": {
     "prepare": "husky install",

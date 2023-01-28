@@ -1,8 +1,20 @@
 {
   "name": "@pkerschbaum/pkg-consumption-test",
   "version": "1.0.0",
+  "license": "MIT",
+  "author": "Patrick Kerschbaum <patrick.kerschbaum@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pkerschbaum/pkg-consumption-test",
+    "directory": "packages/pkg-consumption-test"
+  },
+  "bugs": {
+    "url": "https://github.com/pkerschbaum/pkg-consumption-test/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
-  "private": true,
   "imports": {
     "#pkg/*": "./dist/*"
   },
@@ -18,6 +30,7 @@
     "pkg-consumption-test": "./pkg-consumption-test.js"
   },
   "scripts": {
+    "prepublishOnly": "pnpm run pkg:build",
     "lint": "cross-env APPLY_HEAVY_RULES=true eslint --max-warnings 0",
     "build:compile": "tsc -p ./tsconfig.project.json",
     "pkg:nuke": "pnpm run pkg:nuke:artifacts && rimraf node_modules",
