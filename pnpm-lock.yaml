@@ -18,7 +18,7 @@ importers:
       prettier: 2.8.3
       rimraf: 4.1.2
 
-  packages/runner:
+  packages/pkg-consumption-test:
     specifiers:
       '@commander-js/extra-typings': ^10.0.2
       '@types/node': ^16.11.7
@@ -61,7 +61,7 @@ importers:
 
   packages/test-package:
     specifiers:
-      '@pkg-consumption-test/runner': workspace:1.0.0
+      '@pkerschbaum/pkg-consumption-test': workspace:1.0.0
       '@typescript-eslint/eslint-plugin': ^5.48.0
       '@typescript-eslint/parser': ^5.48.0
       eslint: ^8.31.0
@@ -74,7 +74,7 @@ importers:
       eslint-plugin-regexp: ^1.11.0
       typescript: ^4.9.4
     devDependencies:
-      '@pkg-consumption-test/runner': link:../runner
+      '@pkerschbaum/pkg-consumption-test': link:../pkg-consumption-test
       '@typescript-eslint/eslint-plugin': 5.49.0_iu322prlnwsygkcra5kbpy22si
       '@typescript-eslint/parser': 5.49.0_7uibuqfxkfaozanbtbziikiqje
       eslint: 8.32.0

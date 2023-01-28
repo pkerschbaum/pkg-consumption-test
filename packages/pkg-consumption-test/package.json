@@ -1,5 +1,5 @@
 {
-  "name": "@pkg-consumption-test/runner",
+  "name": "@pkerschbaum/pkg-consumption-test",
   "version": "1.0.0",
   "type": "module",
   "private": true,
@@ -7,7 +7,7 @@
     "#pkg/*": "./dist/*"
   },
   "exports": {
-    ".": "./dist/index.js"
+    ".": "./dist/start-test.js"
   },
   "files": [
     "/dist",

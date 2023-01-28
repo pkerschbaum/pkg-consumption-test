@@ -1,7 +1,7 @@
 {
   "references": [
     {
-      "path": "./runner/tsconfig.project.json"
+      "path": "./pkg-consumption-test/tsconfig.project.json"
     },
     {
       "path": "./test-package/tsconfig.project.json"
