@@ -1,4 +1,4 @@
-import { cac } from "cac";
+import { Command } from "@commander-js/extra-typings";
 import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
@@ -11,29 +11,27 @@ const packageJson = JSON.parse(
   await fs.promises.readFile(path.join(__dirname, "..", "package.json"), { encoding: "utf8" })
 );
 
-const cli = cac("pkg-consumption-test");
-
-cli
+const program = new Command()
   .version(packageJson.version)
-  .option(
+  .requiredOption(
     "--packageName <name>",
     "Name of the package to publish (into Verdaccio) and run the scenarios for"
   )
   .option(
     "--pathToPackageRoot <path>",
     'Absolute or relative path to the package; "npm publish" will be invoked there (default: ".")\'',
-    { default: "." }
+    "."
   )
-  .option(
+  .requiredOption(
     "--pathToScenariosDirectory <path>",
     "Absolute or relative path to the directory containing the consumption test scenarios'"
-  )
-  .help();
+  );
 
-const parsed = cli.parse();
+program.parse();
+const options = program.opts(); // smart type
 
 await startTest({
-  packageName: parsed.options["packageName"],
-  pathToPackageRoot: parsed.options["pathToPackageRoot"],
-  pathToScenariosDirectory: parsed.options["pathToScenariosDirectory"],
+  packageName: options["packageName"],
+  pathToPackageRoot: options["pathToPackageRoot"],
+  pathToScenariosDirectory: options["pathToScenariosDirectory"],
 });
