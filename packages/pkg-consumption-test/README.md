@@ -21,36 +21,38 @@ You want to test your package in those scenarios, but it is cumbersome to do the
 This tool allows you to run automated tests for such "package consumption scenarios".  
 It will
 
-- start a private package registry ([Verdaccio](https://verdaccio.org/))
-- publish your package into that registry
-- run the "consumption scenarios", one by one
-- stop the package registry
+- Start a private package registry (using [Verdaccio](https://verdaccio.org/)).
+- Publish your package into that registry.
+- Run the "consumption scenarios", one by one. They will get your package installed from the private package registry.
+- Stop the package registry.
 
 This approach - using a package registry - will closely simulate the real-world experience of your package
 consumers installing the package from `npmjs.com`.
 
 ## Setup
 
-You can see how it was added to `tiny-invariant` in this pull request: [github.com/alexreardon/tiny-invariant#164](https://github.com/alexreardon/tiny-invariant/pull/164).
+You can see how this tool was added to `tiny-invariant` in this pull request: [github.com/alexreardon/tiny-invariant#164](https://github.com/alexreardon/tiny-invariant/pull/164).
 
-1. Install the package:
+First, install the package:
 
-   ```sh
-   npm add --save-dev @pkerschbaum/pkg-consumption-test
-   ```
+```sh
+npm add --save-dev @pkerschbaum/pkg-consumption-test
+```
 
-1. Add a package.json script to run the package consumption scenarios:
+Add a package.json script to run the package consumption scenarios:
 
-   ```json
-   {
-     "scripts": {
-       "test:pkg-consumption": "pkg-consumption-test --packageName=\"tiny-invariant\" --pathToScenariosDirectory=\"./test-pkg-consumption-scenarios\""
-     }
-   }
-   ```
+```jsonc
+{
+  /* ... */
+  "scripts": {
+    "test:pkg-consumption": "pkg-consumption-test --packageName=\"tiny-invariant\" --pathToScenariosDirectory=\"./test-pkg-consumption-scenarios\""
+  }
+}
+```
 
-1. Implement scenarios in the directory `test-pkg-consumption-scenarios`.
+At this point you can run `npm run test:pkg-consumption` and you will see that the package gets published to the private registry.
 
+Only thing left is to add scenarios.  
 For example, imagine you want to create a scenario which imports and runs the package in a Node.js ESM module:
 
 1. Create the directory `test-pkg-consumption-scenarios/run-node-esm`.
@@ -76,15 +78,15 @@ For example, imagine you want to create a scenario which imports and runs the pa
 1. Finally, you have to implement a `package.json` script called `execute-scenario`.
    This script will be run by `pkg-consumption-test`.  
    You can do there whatever you want - run Node.js, bundle the source with webpack, etc.  
-   For the given scenario, we just do this:
+   For the given scenario, we just execute the ESM file with Node.js:
 
-   ```json
+   ```jsonc
    {
-     // ...
+     /* ... */
      "scripts": {
        "execute-scenario": "node ./src/test.mjs"
      }
    }
    ```
 
-Now, when you run `npm run test:pkg-consumption` in your package, all scenarios will execute!
+Now, when you run `npm run test:pkg-consumption` in your package again, that scenario will get executed!
