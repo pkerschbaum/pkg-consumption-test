@@ -12,16 +12,32 @@ type RunTestOption = {
   pathToScenariosDirectory: string;
 };
 export async function startTest(options: RunTestOption) {
-  const absolutePathToPackageRoot = normalize(options.pathToPackageRoot);
-  const absolutePathToScenariosDirectory = normalize(options.pathToScenariosDirectory);
+  const absolutePathToPackageRoot = path.resolve(normalize(options.pathToPackageRoot));
+  const absolutePathToScenariosDirectory = path.resolve(
+    normalize(options.pathToScenariosDirectory)
+  );
 
   await setup({ packageName: options.packageName, absolutePathToPackageRoot });
 
   try {
+    if (!(await fsUtil.checkIfDirentExists(absolutePathToScenariosDirectory))) {
+      console.warn(
+        `no scenarios to run, reason: did not find the scenarios directory. path=${absolutePathToScenariosDirectory}`
+      );
+      return;
+    }
+
     let scenarioDirectories = await fs.promises.readdir(absolutePathToScenariosDirectory, {
       withFileTypes: true,
     });
     scenarioDirectories = scenarioDirectories.filter((dirent) => dirent.isDirectory());
+
+    if (scenarioDirectories.length === 0) {
+      console.warn(
+        `no scenarios to run, reason: scenarios directory does not contain any directories. path=${absolutePathToScenariosDirectory}`
+      );
+      return;
+    }
 
     for (const scenarioDirectory of scenarioDirectories) {
       console.log(`executing scenario: ${scenarioDirectory.name}`);

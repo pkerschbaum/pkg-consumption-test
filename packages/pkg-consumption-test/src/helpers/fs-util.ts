@@ -2,6 +2,7 @@ import fs from "node:fs";
 
 export const fsUtil = {
   cleanupDirectory,
+  checkIfDirentExists,
 };
 
 async function cleanupDirectory(path: string) {
