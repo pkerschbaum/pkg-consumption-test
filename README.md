@@ -1,5 +1,7 @@
 # pkg-consumption-test
 
+> _deprecated:_ got moved to <https://github.com/pkerschbaum/packages/tree/main/packages/pkg-consumption-test/>
+
 Monorepo for [`@pkerschbaum/pkg-consumption-test`](https://www.npmjs.com/package/@pkerschbaum/pkg-consumption-test).
 
 | Directory                                                            | Description                                                                                                        |
